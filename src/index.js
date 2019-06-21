@@ -1,3 +1,4 @@
+//导包
 import { app, BrowserWindow } from 'electron';
 
 // 在安装/卸载Windows时处理创建/删除快捷方式。
