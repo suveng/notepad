@@ -58,7 +58,7 @@ const createWindow = () => {
   }));
   //再添加一个名为Exit的同级菜单
   menu.items[0].submenu.append(new MenuItem({
-    role: '退出'
+    role: 'quit'
   }));
   Menu.setApplicationMenu(menu); //注意：这个代码要放到菜单添加完成之后，否则会造成新增菜单的快捷键无效
 
