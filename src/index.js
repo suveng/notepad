@@ -60,9 +60,53 @@ const createWindow = () => {
   menu.items[0].submenu.append(new MenuItem({
     role: 'quit'
   }));
+  menu.items[0].submenu.append(new MenuItem({
+    type: 'separator'
+  }));
+
+  //添加一个前进菜单快捷键
+  menu.items[0].submenu.append(new MenuItem({
+    label: "前进",
+    click(){
+      if (mainWindow.webContents.canGoForward()) {
+      console.log('快捷键->前进');        
+        mainWindow.webContents.goForward();
+      }
+    },
+    accelerator: 'CmdOrCtrl+right' //快捷键：Ctrl+->
+  }));
+
+  //添加一个后退菜单快捷键
+  menu.items[0].submenu.append(new MenuItem({
+    label: "后退",
+    click(){
+      if (mainWindow.webContents.canGoBack()) {
+        console.log('快捷键->后退');
+        mainWindow.webContents.goBack()
+      }
+    },
+    accelerator: 'CmdOrCtrl+left' //快捷键：Ctrl+<-
+  }));
+
   Menu.setApplicationMenu(menu); //注意：这个代码要放到菜单添加完成之后，否则会造成新增菜单的快捷键无效
 
+  //浏览器前进事件
+  mainWindow.on('app-command', (e, cmd) => {
+    // 当用户点击鼠标返回按钮时，导航窗口会后退
+    if (cmd === 'browser-backward' && mainWindow.webContents.canGoBack()) {
+      console.log('鼠标点击后退按钮');
+      mainWindow.webContents.goBack()
+    }
+  });
 
+  //浏览器后退事件
+  mainWindow.on('app-command', (e, cmd) => {
+    // 当用户点击鼠标返回按钮时，导航窗口会后退
+    if (cmd === 'browser-forward' && mainWindow.webContents.canGoForward()) {
+      console.log('鼠标点击前进按钮');
+      mainWindow.webContents.goForward()
+    }
+  })
 
 
 
