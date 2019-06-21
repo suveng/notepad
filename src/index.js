@@ -30,7 +30,7 @@ const createWindow = () => {
   const menu=Menu.buildFromTemplate(appMenuTemplate); //从模板创建主菜单
   //在File菜单下添加名为New的子菜单
   menu.items[0].submenu.append(new MenuItem({ //menu.items获取是的主菜单一级菜单的菜单数组，menu.items[0]在这里就是第1个File菜单对象，在其子菜单submenu中添加新的子菜单
-    label: "New",
+    label: "新建文件",
     click(){
       mainWindow.webContents.send('action', 'new'); //点击后向主页渲染进程发送“新建文件”的命令
     },
@@ -38,7 +38,7 @@ const createWindow = () => {
   }));
   //在New菜单后面添加名为Open的同级菜单
   menu.items[0].submenu.append(new MenuItem({
-    label: "Open",
+    label: "打开文件",
     click(){
       mainWindow.webContents.send('action', 'open'); //点击后向主页渲染进程发送“打开文件”的命令
     },
@@ -46,7 +46,7 @@ const createWindow = () => {
   })); 
   //再添加一个名为Save的同级菜单
   menu.items[0].submenu.append(new MenuItem({
-    label: "Save",
+    label: "保存文件",
     click(){
       mainWindow.webContents.send('action', 'save'); //点击后向主页渲染进程发送“保存文件”的命令
     },
@@ -58,7 +58,7 @@ const createWindow = () => {
   }));
   //再添加一个名为Exit的同级菜单
   menu.items[0].submenu.append(new MenuItem({
-    role: 'quit'
+    role: '退出'
   }));
   Menu.setApplicationMenu(menu); //注意：这个代码要放到菜单添加完成之后，否则会造成新增菜单的快捷键无效
 
@@ -66,11 +66,9 @@ const createWindow = () => {
 
 
 
-  // Emitted when the window is closed.
+  // 在窗口关闭时发出。
   mainWindow.on('closed', () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
+    // 取消对window对象的引用，通常情况下，如果你的应用支持多窗口，你会将windows存储在一个数组中，这时你应该删除相应的元素。
     mainWindow = null;
   });
 };
